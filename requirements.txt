@@ -1,3 +1,5 @@
-fastapi==0.73.0
-Jinja2==3.0.3
-uvicorn==0.17.1
+fastapi~=0.73.0
+uvicorn~=0.17.1
+
+starlette~=0.17.1
+libtorrent~=2.0.6
