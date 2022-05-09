@@ -18,7 +18,7 @@ async def space(request: Request, option: str = 'g'):
     used_size = _byte_transform(usage.used, option)
     free_size = _byte_transform(usage.free, option)
 
-    return {'success': True, 'total': total_size, 'used': used_size, 'free': free_size}
+    return {'total': total_size, 'used': used_size, 'free': free_size}
 
 
 def _byte_transform(bytes: int, to: str, bsize=1024) -> str:
