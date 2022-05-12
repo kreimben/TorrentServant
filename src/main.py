@@ -6,8 +6,6 @@ from router import storage
 app = ready.get_application()
 
 app.include_router(frontend.router)
-# TODO: mount backend logics.
-# app.mount('/router/storage', storage.storage)
 app.include_router(storage.router)
 
 if __name__ == '__main__':
