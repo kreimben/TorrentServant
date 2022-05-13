@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
 from fastapi import FastAPI, Response
-from ..main import app
+from src import main
 
-app: FastAPI = app
+app: FastAPI = main.app
 
 client = TestClient(app)
 print('Test Code Is About Executing!')
