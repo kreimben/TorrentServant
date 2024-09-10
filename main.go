@@ -6,12 +6,14 @@ import (
 	"net/http"
 
 	"github.com/kreimben/TorrentServant/route"
+	"github.com/kreimben/TorrentServant/service"
 	"go.uber.org/fx"
 )
 
-func setupServer() {
+func setupServer(torrentService *service.TorrentService) {
 	// Router
-	http.HandleFunc("/", route.MainPage)
+	http.HandleFunc("/", route.MainPage(torrentService))
+	http.HandleFunc("/api/add", route.AddTorrent(torrentService))
 
 	// Server
 	log.Println("Starting server on :8000")
@@ -22,6 +24,7 @@ func setupServer() {
 
 func main() {
 	app := fx.New(
+		fx.Provide(service.NewTorrentService),
 		fx.Invoke(setupServer),
 	)
 

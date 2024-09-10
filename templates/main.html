@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Title}}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 <body>
-    <h1>{{.Message}}</h1>
+    <h1>{{.Title}}</h1>
+    <p>{{.Message}}</p>
+
+    <h2>Add Torrent</h2>
+    <form hx-post="/api/add" hx-target="#torrent-list">
+        <input type="text" name="magnet_link" placeholder="Magnet Link">
+        <button type="submit">Add Torrent</button>
+    </form>
+
+    <h2>Torrents</h2>
+    <div id="torrent-list">
+        {{range .Torrents}}
+        <div>
+            <h3>{{.Name}}</h3>
+            <p>Progress: {{.BytesCompleted}} / {{.Length}} bytes</p>
+        </div>
+        {{end}}
+    </div>
+
+    <script>
+        htmx.on("htmx:afterRequest", function(evt) {
+            if (evt.detail.successful) {
+                location.reload();
+            }
+        });
+    </script>
 </body>
 </html>
